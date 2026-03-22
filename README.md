@@ -50,7 +50,7 @@ This repository hosts my personal portfolio, built with **React** and **Vite**, 
 - **Performance Grade**: Optimized for **90+ Lighthouse scores** on Desktop and Mobile.
 - **SEO Optimized**: Fully indexed with valid `robots.txt` and `sitemap.xml`.
 
-[**Explore the Live Portfolio →**](https://singhsumit880.github.io/portfolio/)
+[**Explore the Live Portfolio →**](https://singhsumit880.github.io/)
 
 ---
 
