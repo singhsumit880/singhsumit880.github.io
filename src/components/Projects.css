@@ -14,16 +14,36 @@
 .project-card {
   background-color: var(--bg-color-elevated);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; 
+  left: -1px;
+  width: 25px; 
+  height: 25px;
+  border-top: 3px solid transparent;
+  border-left: 3px solid transparent;
+  border-radius: 20px 0 0 0;
+  transition: all 0.4s ease;
+}
+
+.project-card:hover::before {
+  border-top-color: var(--accent-color);
+  border-left-color: var(--accent-color);
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent-color);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(247, 37, 133, 0.2);
+  border-color: rgba(247, 37, 133, 0.3);
 }
 
 .project-card-inner {
@@ -76,9 +96,17 @@
 .project-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-primary);
+}
+
+.project-tags span {
+  background-color: var(--bg-color-alt);
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color-faded);
 }
 
 .more-projects {

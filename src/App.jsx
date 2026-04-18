@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import './App.css';
@@ -14,6 +14,30 @@ const Contact = lazy(() => import('./components/Contact'));
 const ThemeToggle = lazy(() => import('./components/ThemeSelector'));
 
 function App() {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    // Set initial state and observe
+    const timer = setTimeout(() => {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach((section) => {
+        section.classList.add('reveal-hidden');
+        observer.observe(section);
+      });
+    }, 100); // small delay to ensure components are mounted
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="app">
       <Navbar />
