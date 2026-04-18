@@ -52,26 +52,25 @@ function App() {
         <>
           <Navbar />
           <main>
-        <Hero />
-        <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
-          <About />
-          <Skills />
-          <Experience />
-          <Education />
-          <Projects />
-          <Achievements />
-          <Contact />
-        </Suspense>
+            <Hero />
+            <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+              <About />
+              <Skills />
+              <Experience />
+              <Education />
+              <Projects />
+              <Achievements />
+              <Contact />
+            </Suspense>
+          </main>
+          <footer className="footer mono">
+            <div className="container">
+              <p>&copy; {new Date().getFullYear()} QA.Engineer. &gt; Built with React ⚛️ | Enhanced with AI 🤖 | Tested with curiosity 🧪.</p>
+            </div>
+          </footer>
+          <Suspense fallback={null}>
+            <ThemeToggle />
           </Suspense>
-        </main>
-        <footer className="footer mono">
-          <div className="container">
-            <p>&copy; {new Date().getFullYear()} QA.Engineer. &gt; Built with React ⚛️ | Enhanced with AI 🤖 | Tested with curiosity 🧪.</p>
-          </div>
-        </footer>
-        <Suspense fallback={null}>
-          <ThemeToggle />
-        </Suspense>
         </>
       )}
     </div>
