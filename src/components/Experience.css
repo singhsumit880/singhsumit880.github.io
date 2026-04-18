@@ -90,8 +90,8 @@
 
 .timeline-item:hover .timeline-content {
   transform: translateX(10px) translateY(-5px);
-  border-color: rgba(247, 37, 133, 0.3);
-  box-shadow: 0 20px 40px rgba(247, 37, 133, 0.2);
+  border-color: rgba(40, 233, 140, 0.3);
+  box-shadow: 0 20px 40px rgba(40, 233, 140, 0.2);
 }
 
 .timeline-header {

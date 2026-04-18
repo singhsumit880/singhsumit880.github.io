@@ -1,28 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Surface Tiering - Deep Purple/Dark Backgrounds */
-  --bg-color: #0b0914; /* Deep space dark */
-  --bg-color-alt: #130f23; /* Slightly elevated */
-  --bg-color-elevated: #1a1532; /* Cards and containers */
-  --bg-color-hover: #241d45; /* Hovers */
+  /* Surface Tiering - Deep Black Backgrounds */
+  --bg-color: #0B0B0B;
+  --bg-color-alt: #111111;
+  --bg-color-elevated: #151515;
+  --bg-color-hover: rgba(255, 255, 255, 0.05);
   
   /* Text */
   --text-primary: #ffffff;
-  --text-secondary: #bbaed1;
-  --text-muted: #80759e;
+  --text-secondary: #999999;
+  --text-muted: #555555;
   
-  /* Accents - Biohub Pink Theme */
-  --accent-color: #f72585; /* Vibrant Pink */
-  --accent-color-glow: rgba(247, 37, 133, 0.4);
-  --accent-color-faded: rgba(247, 37, 133, 0.1);
-  --accent-primary-container: #ff4d9c;
+  /* Accents - Davies Green Theme */
+  --accent-color: #28E98C; /* Neon Green */
+  --accent-color-glow: rgba(40, 233, 140, 0.4);
+  --accent-color-faded: rgba(40, 233, 140, 0.1);
+  --accent-primary-container: #1DD37A;
   
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
-  --gradient-text: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
-  --gradient-text-vibe: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --gradient-text-qa: linear-gradient(135deg, #f72585 0%, #ff9a9e 100%);
+  --gradient-primary: linear-gradient(135deg, #28E98C 0%, #1DD37A 100%);
+  --gradient-text: linear-gradient(135deg, #28E98C 0%, #FFFFFF 100%);
+  --gradient-text-vibe: linear-gradient(135deg, #FFFFFF 0%, #999999 100%);
+  --gradient-text-qa: linear-gradient(135deg, #28E98C 0%, #1DD37A 100%);
 
   /* Elements */
   --border-color: rgba(255, 255, 255, 0.1);

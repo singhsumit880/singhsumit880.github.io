@@ -42,8 +42,8 @@
 
 .achievement-card:hover {
   transform: translateY(-10px);
-  border-color: rgba(247, 37, 133, 0.3);
-  box-shadow: 0 20px 40px rgba(247, 37, 133, 0.2);
+  border-color: rgba(40, 233, 140, 0.3);
+  box-shadow: 0 20px 40px rgba(40, 233, 140, 0.2);
 }
 
 .achievement-icon-wrapper {

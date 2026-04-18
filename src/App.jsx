@@ -1,6 +1,7 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Loader from './components/Loader';
 import './App.css';
 
 // Lazy load components that are below the fold
@@ -14,6 +15,8 @@ const Contact = lazy(() => import('./components/Contact'));
 const ThemeToggle = lazy(() => import('./components/ThemeSelector'));
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -23,25 +26,32 @@ function App() {
       });
     }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-    // Set initial state and observe
-    const timer = setTimeout(() => {
-      const sections = document.querySelectorAll('.section');
-      sections.forEach((section) => {
-        section.classList.add('reveal-hidden');
-        observer.observe(section);
-      });
-    }, 100); // small delay to ensure components are mounted
+    // Ensure elements are observed after loading is finished
+    let timer;
+    if (!isLoading) {
+      timer = setTimeout(() => {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach((section) => {
+          section.classList.add('reveal-hidden');
+          observer.observe(section);
+        });
+      }, 100);
+    }
 
     return () => {
       clearTimeout(timer);
       observer.disconnect();
     };
-  }, []);
+  }, [isLoading]);
 
   return (
     <div className="app">
-      <Navbar />
-      <main>
+      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+      
+      {!isLoading && (
+        <>
+          <Navbar />
+          <main>
         <Hero />
         <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
           <About />
@@ -52,15 +62,18 @@ function App() {
           <Achievements />
           <Contact />
         </Suspense>
-      </main>
-      <footer className="footer mono">
-        <div className="container">
-          <p>&copy; {new Date().getFullYear()} QA.Engineer. &gt; Built with React ⚛️ | Enhanced with AI 🤖 | Tested with curiosity 🧪.</p>
-        </div>
-      </footer>
-      <Suspense fallback={null}>
-        <ThemeToggle />
-      </Suspense>
+          </Suspense>
+        </main>
+        <footer className="footer mono">
+          <div className="container">
+            <p>&copy; {new Date().getFullYear()} QA.Engineer. &gt; Built with React ⚛️ | Enhanced with AI 🤖 | Tested with curiosity 🧪.</p>
+          </div>
+        </footer>
+        <Suspense fallback={null}>
+          <ThemeToggle />
+        </Suspense>
+        </>
+      )}
     </div>
   );
 }
