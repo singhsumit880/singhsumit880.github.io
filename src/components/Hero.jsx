@@ -1,66 +1,95 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Hero.css';
-import { Terminal, Github, Linkedin, Mail, Instagram } from 'lucide-react';
+import { Download, Github, Linkedin, Mail, Instagram, ArrowRight } from 'lucide-react';
 
-const Hero = () => {
+const Hero = ({ onOpenResume }) => {
   const [text, setText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(100);
 
-  const fullText = "Breaking code so users don't have to.";
+  const titles = ["QA Engineer.", "Vibe Coder."];
 
   useEffect(() => {
-    if (isTyping && text.length < fullText.length) {
-      const timeout = setTimeout(() => {
-        setText(fullText.slice(0, text.length + 1));
-      }, 75); // Slightly slower for readability and performance
-      return () => clearTimeout(timeout);
-    } else if (isTyping && text.length === fullText.length) {
-      const timeout = setTimeout(() => setIsTyping(false), 500); // Pause before blinking
-      return () => clearTimeout(timeout);
-    }
-  }, [text, isTyping, fullText]);
+    const handleTyping = () => {
+      const i = loopNum % titles.length;
+      const fullText = titles[i];
+
+      setText(
+        isDeleting
+          ? fullText.substring(0, text.length - 1)
+          : fullText.substring(0, text.length + 1)
+      );
+
+      setTypingSpeed(isDeleting ? 50 : 100);
+
+      if (!isDeleting && text === fullText) {
+        setTypingSpeed(2000); // Wait before deleting
+        setIsDeleting(true);
+      } else if (isDeleting && text === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+        setTypingSpeed(300); // Pause before re-typing
+      }
+    };
+
+    let timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, typingSpeed]);
 
   return (
     <section id="hero" className="hero-section">
       <div className="container hero-container">
         <div className="hero-content">
-          <div className="terminal-header mono">
-            <span className="terminal-icon"><Terminal size={16} /></span>
-            <span className="terminal-title">sumit@qa_engineer: ~</span>
-          </div>
+          {/* <div className="hero-badge fade-in">
+            <span>QA / SDET / Automation</span>
+          </div> */}
 
-          <h1 className="hero-title fade-in">
-            Hi, I'm <span className="highlight">Sumit</span>.
+          <h1 className="hero-title fade-in" style={{ animationDelay: '0.1s' }}>
+            <span className="hero-name">Sumit </span>
+            <span className="text-gradient">Singh</span>
+            <br />
+            <span className={loopNum % 2 === 0 ? "text-gradient-qa" : "text-gradient-vibe"}>
+              {text}
+            </span>
+            <span className="cursor-blink">|</span>
           </h1>
 
-          <h2 className="hero-subtitle fade-in" style={{ animationDelay: '0.2s' }}>
-            QA Engineer & SDET
-          </h2>
-
-          <div className="terminal-body mono fade-in" style={{ animationDelay: '0.4s' }}>
-            <span className="prompt">$&gt;</span> {text}
-            <span className={`cursor ${!isTyping ? 'blink' : ''}`}>_</span>
-          </div>
-
-          <p className="hero-description fade-in" style={{ animationDelay: '0.6s' }}>
-            I specialize in building robust test automation frameworks,
-            ensuring software quality, and streamlining CI/CD pipelines.
-            Passionate about shifting left and delivering flawless user experiences.
+          <p className="hero-description fade-in" style={{ animationDelay: '0.2s' }}>
+            I specialize in building robust test automation frameworks, ensuring software quality, and streamlining CI/CD pipelines. Passionate about shifting left and delivering flawless user experiences.
           </p>
 
-          <div className="hero-actions fade-in" style={{ animationDelay: '0.8s' }}>
-            <a href="#projects" className="btn btn-primary">View Projects</a>
-            <a href="https://github.com/singhsumit880/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Visit my GitHub profile"><Github size={24} /></a>
-            <a href="https://linkedin.com/in/singhsumit880" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Connect with me on LinkedIn"><Linkedin size={24} /></a>
-            <a href="https://www.instagram.com/singh_sumit_880" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Follow me on Instagram"><Instagram size={24} /></a>
-            <a href="mailto:singhsumit880@gmail.com" className="social-link" aria-label="Send me an email"><Mail size={24} /></a>
+          <div className="hero-metrics fade-in" style={{ animationDelay: '0.25s' }} aria-label="Professional highlights">
+            <div className="hero-metric">
+              <span className="metric-value">5+</span>
+              <span className="metric-label">Years Experience</span>
+            </div>
+            <div className="hero-metric">
+              <span className="metric-value">20+</span>
+              <span className="metric-label">Releases Certified</span>
+            </div>
+            <div className="hero-metric">
+              <span className="metric-value">500+</span>
+              <span className="metric-label">Bugs Prevented</span>
+            </div>
+          </div>
+
+          <div className="hero-actions fade-in" style={{ animationDelay: '0.3s' }}>
+            <a href="#projects" className="btn btn-primary">
+              View Projects <ArrowRight size={18} />
+            </a>
+            <button type="button" className="btn btn-secondary" onClick={onOpenResume}>
+              View CV <Download size={18} />
+            </button>
+            <div className="social-links">
+              <a href="https://github.com/singhsumit880/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="GitHub"><Github size={20} /></a>
+              <a href="https://linkedin.com/in/singhsumit880" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn"><Linkedin size={20} /></a>
+              <a href="https://www.instagram.com/singh_sumit_880" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram"><Instagram size={20} /></a>
+              <a href="mailto:singhsumit880@gmail.com" className="social-icon" aria-label="Email"><Mail size={20} /></a>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Abstract background elements */}
-      <div className="bg-element globe"></div>
-      <div className="bg-element lines"></div>
     </section>
   );
 };

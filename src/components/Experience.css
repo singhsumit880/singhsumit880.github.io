@@ -1,6 +1,6 @@
 .timeline {
   position: relative;
-  max-width: 800px;
+  max-width: 920px;
   margin: 0 auto;
 }
 
@@ -11,7 +11,7 @@
   left: 20px;
   height: 100%;
   width: 2px;
-  background-color: var(--border-color);
+  background: linear-gradient(to bottom, var(--accent-color), var(--border-color));
 }
 
 @media (min-width: 768px) {
@@ -42,11 +42,11 @@
   left: 12px;
   width: 18px;
   height: 18px;
-  border-radius: 50%;
+  border-radius: 999px;
   background-color: var(--bg-color);
   border: 3px solid var(--accent-color);
   z-index: 1;
-  box-shadow: 0 0 10px var(--accent-color-glow);
+  box-shadow: none;
 }
 
 @media (min-width: 768px) {
@@ -57,20 +57,27 @@
 
 .timeline-item:hover .timeline-marker {
   background-color: var(--accent-color);
-  box-shadow: 0 0 15px var(--accent-color);
+  box-shadow: 0 0 0 8px var(--accent-color-faded);
 }
 
 .timeline-content {
   background-color: var(--bg-color-elevated);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: transform var(--transition-normal);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: visible;
+}
+
+.timeline-content::after {
+  display: none;
 }
 
 .timeline-item:hover .timeline-content {
-  border-color: var(--border-color-light);
-  transform: translateX(5px);
+  transform: var(--card-hover-transform);
+  border-color: var(--accent-color);
+  box-shadow: var(--card-hover-shadow);
 }
 
 .timeline-header {
@@ -101,7 +108,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 8px;
   border: 1px solid var(--border-color);
   flex-shrink: 0;
@@ -114,7 +121,7 @@
 }
 
 .role {
-  font-size: 1.3rem;
+  font-size: 1.55rem;
   margin-bottom: 0.25rem;
 }
 
@@ -131,8 +138,9 @@
 
 .company {
   font-size: 1rem;
-  font-style: italic;
+  font-style: normal;
   margin-bottom: 1rem;
+  letter-spacing: 0;
 }
 
 .description {
@@ -160,7 +168,7 @@
   min-width: 6px;
   height: 6px;
   background-color: var(--accent-color);
-  border-radius: 50%;
+  border-radius: 999px;
   margin-top: 0.5rem;
   margin-right: 0.75rem;
 }

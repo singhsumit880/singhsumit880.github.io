@@ -1,7 +1,7 @@
 .skills-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 @media (min-width: 640px) {
@@ -19,40 +19,30 @@
 .skill-category-card {
   background-color: var(--bg-color-elevated);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: all var(--transition-normal);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
-.skill-category-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: transparent;
-  transition: background-color var(--transition-normal);
+.skill-category-card::after {
+  display: none;
 }
 
 .skill-category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.skill-category-card:hover::before {
-  background-color: var(--accent-color);
+  transform: var(--card-hover-transform);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--accent-color);
 }
 
 .skill-category-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px dashed var(--border-color);
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .skill-icon {
@@ -60,14 +50,14 @@
 }
 
 .skill-title {
-  font-size: 1.2rem;
+  font-size: 1.08rem;
   margin-bottom: 0;
 }
 
 .skill-list {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.55rem;
 }
 
 .skill-item {
@@ -75,6 +65,36 @@
   font-size: 0.95rem;
   display: flex;
   align-items: center;
+  gap: 0.7rem;
+}
+
+.skill-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  color: var(--text-primary);
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.skill-item-icon img {
+  width: 17px;
+  height: 17px;
+  display: block;
+  object-fit: contain;
+}
+
+.skill-item-text-icon {
+  color: var(--accent-color);
+  background: var(--accent-color-faded);
+  border-color: var(--border-color);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0;
 }
 
 .bullet {
