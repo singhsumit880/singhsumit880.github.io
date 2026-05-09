@@ -1,6 +1,6 @@
 .timeline {
   position: relative;
-  max-width: 800px;
+  max-width: 920px;
   margin: 0 auto;
 }
 
@@ -11,7 +11,7 @@
   left: 20px;
   height: 100%;
   width: 2px;
-  background-color: rgba(64, 72, 93, 0.3); /* Softer line */
+  background: linear-gradient(to bottom, var(--accent-color), var(--border-color));
 }
 
 @media (min-width: 768px) {
@@ -42,11 +42,11 @@
   left: 12px;
   width: 18px;
   height: 18px;
-  border-radius: 50%;
+  border-radius: 999px;
   background-color: var(--bg-color);
   border: 3px solid var(--accent-color);
   z-index: 1;
-  box-shadow: 0 0 10px var(--accent-color-glow);
+  box-shadow: none;
 }
 
 @media (min-width: 768px) {
@@ -57,13 +57,13 @@
 
 .timeline-item:hover .timeline-marker {
   background-color: var(--accent-color);
-  box-shadow: 0 0 15px var(--accent-color);
+  box-shadow: 0 0 0 8px var(--accent-color-faded);
 }
 
 .timeline-content {
   background-color: var(--bg-color-elevated);
   border: 1px solid var(--border-color);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 2rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -71,27 +71,13 @@
 }
 
 .timeline-content::after {
-  content: '';
-  position: absolute;
-  top: -1px; 
-  right: -1px;
-  width: 25px; 
-  height: 25px;
-  border-top: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-radius: 0 20px 0 0;
-  transition: all 0.4s ease;
-}
-
-.timeline-item:hover .timeline-content::after {
-  border-top-color: var(--accent-color);
-  border-right-color: var(--accent-color);
+  display: none;
 }
 
 .timeline-item:hover .timeline-content {
-  transform: translateX(10px) translateY(-5px);
-  border-color: rgba(40, 233, 140, 0.3);
-  box-shadow: 0 20px 40px rgba(40, 233, 140, 0.2);
+  transform: var(--card-hover-transform);
+  border-color: var(--accent-color);
+  box-shadow: var(--card-hover-shadow);
 }
 
 .timeline-header {
@@ -122,7 +108,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 8px;
   border: 1px solid var(--border-color);
   flex-shrink: 0;
@@ -135,7 +121,7 @@
 }
 
 .role {
-  font-size: 1.3rem;
+  font-size: 1.55rem;
   margin-bottom: 0.25rem;
 }
 
@@ -152,8 +138,9 @@
 
 .company {
   font-size: 1rem;
-  font-style: italic;
+  font-style: normal;
   margin-bottom: 1rem;
+  letter-spacing: 0;
 }
 
 .description {
@@ -181,7 +168,7 @@
   min-width: 6px;
   height: 6px;
   background-color: var(--accent-color);
-  border-radius: 50%;
+  border-radius: 999px;
   margin-top: 0.5rem;
   margin-right: 0.75rem;
 }

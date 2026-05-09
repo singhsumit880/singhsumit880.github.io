@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import { Menu, X } from 'lucide-react';
 
-const Navbar = () => {
+const Navbar = ({ onOpenResume }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -39,6 +39,9 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <button type="button" className="nav-link nav-button" onClick={onOpenResume}>
+            CV
+          </button>
           <a href="#contact" className="btn-contact mono">Say Hello</a>
         </div>
 
@@ -64,6 +67,16 @@ const Navbar = () => {
             {link.name}
           </a>
         ))}
+        <button
+          type="button"
+          className="mobile-link mobile-button"
+          onClick={() => {
+            setMobileMenuOpen(false);
+            onOpenResume();
+          }}
+        >
+          CV
+        </button>
         <a 
           href="#contact" 
           className="btn-contact-mobile mono"

@@ -1,28 +1,28 @@
 import React from 'react';
 import './About.css';
-import { Target, Search, Zap, CheckCircle2 } from 'lucide-react';
+import { Bot, GitBranch, ShieldCheck, Workflow } from 'lucide-react';
 
 const About = () => {
   const stats = [
     {
-      icon: <Target size={24} className="stat-icon" />,
-      value: "5+",
-      label: "Years Experience"
+      icon: <Workflow size={24} className="stat-icon" />,
+      value: "E2E",
+      label: "Automation Architecture"
     },
     {
-      icon: <Search size={24} className="stat-icon" />,
-      value: "500+",
-      label: "Bugs Prevented"
+      icon: <ShieldCheck size={24} className="stat-icon" />,
+      value: "API",
+      label: "Data & Contract Validation"
     },
     {
-      icon: <CheckCircle2 size={24} className="stat-icon" />,
-      value: "20+",
-      label: "Releases Certified"
+      icon: <Bot size={24} className="stat-icon" />,
+      value: "AI",
+      label: "QA Agent Workflows"
     },
     {
-      icon: <Zap size={24} className="stat-icon" />,
-      value: "99%",
-      label: "Test Coverage"
+      icon: <GitBranch size={24} className="stat-icon" />,
+      value: "CI",
+      label: "Pipeline Quality Gates"
     }
   ];
 
@@ -36,10 +36,14 @@ const About = () => {
         <div className="about-content">
           <div className="about-image-container fade-in">
             <div className="about-image-wrapper">
-              <img src={`${import.meta.env.BASE_URL}assets/profile.png`} alt="Sumit" className="profile-image" loading="lazy" />
-              <div className="image-backdrop"></div>
+              <img src={`${import.meta.env.BASE_URL}assets/profile.png`} alt="Sumit Singh" className="profile-image" loading="lazy" />
+              <div className="profile-caption">
+                <span>Sumit Singh</span>
+                <small>QA Engineer & SDET</small>
+              </div>
             </div>
           </div>
+
           <div className="about-text fade-in" style={{ animationDelay: '0.2s' }}>
             <p>
               I am a dedicated Quality Assurance Engineer and Software Development Engineer in Test (SDET)

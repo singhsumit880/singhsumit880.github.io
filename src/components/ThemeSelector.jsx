@@ -1,57 +1,105 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ThemeSelector.css';
-import { Sun, Moon } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 
-export const themes = [
-  { name: 'Neon Green', color: '#00ff88', glow: 'rgba(0, 255, 136, 0.2)', faded: 'rgba(0, 255, 136, 0.1)' },
-  { name: 'Cyber Blue', color: '#00f0ff', glow: 'rgba(0, 240, 255, 0.2)', faded: 'rgba(0, 240, 255, 0.1)' },
-  { name: 'Hacker Purple', color: '#b026ff', glow: 'rgba(176, 38, 255, 0.2)', faded: 'rgba(176, 38, 255, 0.1)' },
-  { name: 'Sunset Orange', color: '#ff6b00', glow: 'rgba(255, 107, 0, 0.2)', faded: 'rgba(255, 107, 0, 0.1)' },
-  { name: 'Crimson Red', color: '#ff003c', glow: 'rgba(255, 0, 60, 0.2)', faded: 'rgba(255, 0, 60, 0.1)' },
+const themes = [
+  {
+    name: 'Crimson',
+    primary: '#ef0d33',
+    secondary: '#ff6b82',
+    glow: 'rgba(239, 13, 51, 0.34)',
+    faded: 'rgba(239, 13, 51, 0.11)',
+  },
+  {
+    name: 'Cobalt',
+    primary: '#3b82f6',
+    secondary: '#67e8f9',
+    glow: 'rgba(59, 130, 246, 0.34)',
+    faded: 'rgba(59, 130, 246, 0.11)',
+  },
+  {
+    name: 'Emerald',
+    primary: '#10b981',
+    secondary: '#7dd3fc',
+    glow: 'rgba(16, 185, 129, 0.34)',
+    faded: 'rgba(16, 185, 129, 0.11)',
+  },
+  {
+    name: 'Amber',
+    primary: '#f59e0b',
+    secondary: '#fb7185',
+    glow: 'rgba(245, 158, 11, 0.34)',
+    faded: 'rgba(245, 158, 11, 0.12)',
+  },
+  {
+    name: 'Violet',
+    primary: '#8b5cf6',
+    secondary: '#f472b6',
+    glow: 'rgba(139, 92, 246, 0.34)',
+    faded: 'rgba(139, 92, 246, 0.11)',
+  },
 ];
 
-const ThemeToggle = () => {
+const rgbaWithAlpha = (rgba, alpha) => rgba.replace(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*[\d.]+\)/, `rgba($1, $2, $3, ${alpha})`);
+
+const applyTheme = (theme, mode = 'dark') => {
+  const root = document.documentElement;
+  const isLight = mode === 'light';
+  const glow = isLight ? rgbaWithAlpha(theme.glow, 0.22) : theme.glow;
+  const faded = isLight ? rgbaWithAlpha(theme.faded, 0.08) : theme.faded;
+
+  root.style.setProperty('--accent-color', theme.primary);
+  root.style.setProperty('--accent-secondary', theme.secondary);
+  root.style.setProperty('--accent-color-glow', glow);
+  root.style.setProperty('--accent-color-faded', faded);
+  root.style.setProperty('--accent-primary-container', theme.secondary);
+  root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${theme.primary} 0%, ${theme.secondary} 100%)`);
+  root.style.setProperty('--gradient-text', `linear-gradient(135deg, var(--text-primary) 0%, ${theme.primary} 100%)`);
+  root.style.setProperty('--gradient-text-qa', `linear-gradient(135deg, ${theme.primary} 0%, ${theme.secondary} 55%, var(--text-primary) 100%)`);
+  root.style.setProperty('--gradient-text-vibe', `linear-gradient(135deg, var(--text-primary) 0%, ${theme.secondary} 100%)`);
+};
+
+const ThemeSelector = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    // 1. Apply Random Accent Color on every refresh
     const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-    const root = document.documentElement;
-    root.style.setProperty('--accent-color', randomTheme.color);
-    root.style.setProperty('--accent-color-glow', randomTheme.glow);
-    root.style.setProperty('--accent-color-faded', randomTheme.faded);
-
-    // 2. Clear title or set it to the random theme name in console for curiosity
-    console.log(`%c Theme: ${randomTheme.name} `, `background: ${randomTheme.color}; color: #000; font-weight: bold;`);
-
-    // 3. Load saved Dark/Light preference
     const savedMode = localStorage.getItem('qa-portfolio-mode');
+    const mode = savedMode === 'light' ? 'light' : 'dark';
+    window.__qaPortfolioTheme = randomTheme;
+    applyTheme(randomTheme, mode);
+
     if (savedMode === 'light') {
-      setIsDarkMode(false);
       document.documentElement.classList.add('light-mode');
+      setIsDarkMode(false);
+    } else {
+      document.documentElement.classList.remove('light-mode');
+      setIsDarkMode(true);
     }
   }, []);
 
-  const toggleTheme = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    
-    if (newMode) {
+  const toggleMode = () => {
+    const nextIsDark = !isDarkMode;
+    setIsDarkMode(nextIsDark);
+
+    if (nextIsDark) {
       document.documentElement.classList.remove('light-mode');
       localStorage.setItem('qa-portfolio-mode', 'dark');
+      applyTheme(window.__qaPortfolioTheme || themes[0], 'dark');
     } else {
       document.documentElement.classList.add('light-mode');
       localStorage.setItem('qa-portfolio-mode', 'light');
+      applyTheme(window.__qaPortfolioTheme || themes[0], 'light');
     }
   };
 
   return (
     <div className="theme-toggle-container">
-      <button 
-        className="theme-toggle-btn" 
-        onClick={toggleTheme}
-        aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        title={isDarkMode ? "Light Mode" : "Dark Mode"}
+      <button
+        className="theme-toggle-btn"
+        onClick={toggleMode}
+        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        title={isDarkMode ? 'Light mode' : 'Dark mode'}
       >
         {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
       </button>
@@ -59,5 +107,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;
-
+export default ThemeSelector;

@@ -5,32 +5,32 @@ import { ExternalLink, Github, FolderGit2 } from 'lucide-react';
 const Projects = () => {
   const projects = [
     {
+      title: "DB Lens",
+      description: "Android app published on Google Play, built to make database inspection and validation easier from a mobile workflow.",
+      tags: ["Android", "Google Play", "Mobile App", "Database"],
+      githubUrl: null,
+      liveUrl: "https://play.google.com/store/apps/details?id=com.devxsumit.dblens"
+    },
+    {
+      title: "DBCompare 2.0",
+      description: "Database comparison utility for validating differences across datasets and supporting faster QA verification workflows.",
+      tags: ["Database", "QA Tool", "Validation", "Utility"],
+      githubUrl: "https://github.com/singhsumit880/DBCompare2.0",
+      liveUrl: null
+    },
+    {
+      title: "QA Agent",
+      description: "Automation-focused QA assistant project designed to support testing workflows, validation tasks, and quality engineering productivity.",
+      tags: ["QA", "Automation", "Agent", "Testing"],
+      githubUrl: "https://github.com/singhsumit880/qa_agent",
+      liveUrl: null
+    },
+    {
       title: "Playwright API & UI Framework",
       description: "A robust, scalable test automation framework built with Playwright and TypeScript incorporating the Page Object Model, custom reporters, and parallel execution.",
       tags: ["Playwright", "TypeScript", "Allure", "GitHub Actions"],
       githubUrl: "#",
       liveUrl: "#"
-    },
-    {
-      title: "Chaos Monkey Simulator",
-      description: "Custom Python script to simulate random network failures and latency to test application resilience and degraded states during automated suites.",
-      tags: ["Python", "Docker", "Bash", "Testing"],
-      githubUrl: "#",
-      liveUrl: null
-    },
-    {
-      title: "Selenium Grid Cloud Integrator",
-      description: "A tool to dynamically spin up Selenium Grid nodes in AWS EC2 based on test queue size, optimizing testing costs by 40%.",
-      tags: ["Java", "AWS", "Terraform", "Selenium"],
-      githubUrl: "#",
-      liveUrl: "#"
-    },
-    {
-      title: "Visual Regression Action",
-      description: "A GitHub Action that performs pixel-by-pixel visual comparisons of UI components using pixelmatch and posts a comment with visual diffs on PRs.",
-      tags: ["JavaScript", "CI/CD", "Jest", "pixelmatch"],
-      githubUrl: "#",
-      liveUrl: null
     }
   ];
 
