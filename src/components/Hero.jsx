@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Hero.css';
-import { Download, Github, Linkedin, Mail, Instagram, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, Mail, Instagram, ArrowRight } from 'lucide-react';
 
-const Hero = ({ onOpenResume }) => {
+const Hero = () => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
@@ -41,12 +41,12 @@ const Hero = ({ onOpenResume }) => {
     <section id="hero" className="hero-section">
       <div className="container hero-container">
         <div className="hero-content">
-          {/* <div className="hero-badge fade-in">
-            <span>QA / SDET / Automation</span>
-          </div> */}
+          <div className="hero-badge fade-in">
+            <span>Hello!! I'm</span>
+          </div>
 
           <h1 className="hero-title fade-in" style={{ animationDelay: '0.1s' }}>
-            <span className="hero-name">Sumit </span>
+            Sumit<br />
             <span className="text-gradient">Singh</span>
             <br />
             <span className={loopNum % 2 === 0 ? "text-gradient-qa" : "text-gradient-vibe"}>
@@ -59,28 +59,10 @@ const Hero = ({ onOpenResume }) => {
             I specialize in building robust test automation frameworks, ensuring software quality, and streamlining CI/CD pipelines. Passionate about shifting left and delivering flawless user experiences.
           </p>
 
-          <div className="hero-metrics fade-in" style={{ animationDelay: '0.25s' }} aria-label="Professional highlights">
-            <div className="hero-metric">
-              <span className="metric-value">5+</span>
-              <span className="metric-label">Years Experience</span>
-            </div>
-            <div className="hero-metric">
-              <span className="metric-value">20+</span>
-              <span className="metric-label">Releases Certified</span>
-            </div>
-            <div className="hero-metric">
-              <span className="metric-value">500+</span>
-              <span className="metric-label">Bugs Prevented</span>
-            </div>
-          </div>
-
           <div className="hero-actions fade-in" style={{ animationDelay: '0.3s' }}>
             <a href="#projects" className="btn btn-primary">
               View Projects <ArrowRight size={18} />
             </a>
-            <button type="button" className="btn btn-secondary" onClick={onOpenResume}>
-              View CV <Download size={18} />
-            </button>
             <div className="social-links">
               <a href="https://github.com/singhsumit880/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="GitHub"><Github size={20} /></a>
               <a href="https://linkedin.com/in/singhsumit880" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn"><Linkedin size={20} /></a>
