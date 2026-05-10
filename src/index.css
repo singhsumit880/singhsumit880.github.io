@@ -152,6 +152,81 @@ ul {
   content-visibility: auto;
   contain-intrinsic-size: 1px 1000px;
   border-top: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(var(--accent-color) 0.5px, transparent 0.5px),
+    radial-gradient(circle at center center, var(--accent-color), transparent 58%),
+    repeating-radial-gradient(
+      circle at center center,
+      color-mix(in srgb, var(--accent-color) 42%, transparent),
+      color-mix(in srgb, var(--accent-color) 42%, transparent) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  background-size: 10px 10px, 100% 100%, 100% 100%;
+  background-blend-mode: normal, multiply, multiply;
+  opacity: 0.032;
+  transform: translate3d(0, 0, 0);
+}
+
+.section:nth-of-type(even)::before {
+  background:
+    radial-gradient(var(--accent-secondary) 0.5px, transparent 0.5px),
+    radial-gradient(circle at center center, var(--accent-secondary), transparent 58%),
+    repeating-radial-gradient(
+      circle at center center,
+      color-mix(in srgb, var(--accent-secondary) 36%, transparent),
+      color-mix(in srgb, var(--accent-secondary) 36%, transparent) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  background-size: 10px 10px, 100% 100%, 100% 100%;
+  background-blend-mode: normal, multiply, multiply;
+}
+
+:root.light-mode .section::before {
+  background:
+    radial-gradient(var(--accent-color) 0.5px, transparent 0.5px),
+    radial-gradient(circle at center center, var(--accent-color), transparent 58%),
+    repeating-radial-gradient(
+      circle at center center,
+      color-mix(in srgb, var(--accent-color) 30%, transparent),
+      color-mix(in srgb, var(--accent-color) 30%, transparent) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  background-size: 10px 10px, 100% 100%, 100% 100%;
+  background-blend-mode: normal, multiply, multiply;
+  opacity: 0.03;
+}
+
+:root.light-mode .section:nth-of-type(even)::before {
+  background:
+    radial-gradient(var(--accent-secondary) 0.5px, transparent 0.5px),
+    radial-gradient(circle at center center, var(--accent-secondary), transparent 58%),
+    repeating-radial-gradient(
+      circle at center center,
+      color-mix(in srgb, var(--accent-secondary) 28%, transparent),
+      color-mix(in srgb, var(--accent-secondary) 28%, transparent) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  background-size: 10px 10px, 100% 100%, 100% 100%;
+  background-blend-mode: normal, multiply, multiply;
+}
+
+.section > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .section-header {

@@ -39,9 +39,7 @@ const Navbar = ({ onOpenResume }) => {
               {link.name}
             </a>
           ))}
-          <button type="button" className="nav-link nav-button" onClick={onOpenResume}>
-            CV
-          </button>
+         
           <a href="#contact" className="btn-contact mono">Say Hello</a>
         </div>
 
@@ -67,16 +65,7 @@ const Navbar = ({ onOpenResume }) => {
             {link.name}
           </a>
         ))}
-        <button
-          type="button"
-          className="mobile-link mobile-button"
-          onClick={() => {
-            setMobileMenuOpen(false);
-            onOpenResume();
-          }}
-        >
-          CV
-        </button>
+        
         <a 
           href="#contact" 
           className="btn-contact-mobile mono"

@@ -91,10 +91,20 @@
   background-color: var(--bg-color-alt);
   padding: 0.45rem 0.65rem;
   border-radius: 999px;
-  color: var(--accent-color);
-  border: 1px solid var(--accent-color-faded);
+  color: #fff;
+  border: 1px solid var(--accent-color);
   font-weight: 700;
   letter-spacing: 0;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.project-tags li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px var(--accent-color-faded), 0 10px 24px var(--accent-color-glow);
+}
+
+:root.light-mode .project-tags li {
+  color: var(--accent-color);
 }
 
 .more-projects {

@@ -112,6 +112,18 @@
   transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group textarea:-webkit-autofill,
+.form-group textarea:-webkit-autofill:hover,
+.form-group textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-primary);
+  box-shadow: 0 0 0 1000px var(--bg-color-alt) inset;
+  caret-color: var(--text-primary);
+  transition: background-color 9999s ease-out, color 9999s ease-out;
+}
+
 .form-group textarea {
   min-height: 150px;
   resize: vertical;
