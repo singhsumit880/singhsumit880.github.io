@@ -55,9 +55,13 @@ function App() {
           <Contact />
         </Suspense>
       </main>
-      <footer className="footer mono">
+      <footer className="footer">
         <div className="container">
-          <p>&copy; {new Date().getFullYear()} Designed, built, and tested by Sumit Singh.</p>
+          <div className="footer-content">
+            <a href="#home" className="footer-logo">&lt;QA.Engineer/&gt;</a>
+            <p>&copy; {new Date().getFullYear()} Designed, built, and tested with a QA-first mindset.</p>
+            <span>Bangalore, India</span>
+          </div>
         </div>
       </footer>
       <Suspense fallback={null}>

@@ -5,7 +5,9 @@
   position: relative;
   overflow: hidden;
   padding-top: 80px;
-  background: var(--bg-color);
+  background:
+    linear-gradient(115deg, transparent 0 64%, var(--accent-color-faded) 64% 64.4%, transparent 64.4% 100%),
+    var(--bg-color);
 }
 
 .hero-section::before {
@@ -17,13 +19,72 @@
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(0deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 80px 80px;
-  opacity: 0.42;
+  opacity: 0.16;
+  animation: heroGridDrift 18s linear infinite;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(var(--accent-color) 0.5px, transparent 0.5px),
+    radial-gradient(circle at center center, var(--accent-color), transparent 58%),
+    repeating-radial-gradient(
+      circle at center center,
+      color-mix(in srgb, var(--accent-color) 42%, transparent),
+      color-mix(in srgb, var(--accent-color) 42%, transparent) 10px,
+      transparent 10px,
+      transparent 20px
+    ),
+    linear-gradient(90deg, var(--accent-color-faded), transparent 34%);
+  background-size: 10px 10px, 100% 100%, 100% 100%, 100% 100%;
+  background-blend-mode: normal, multiply, multiply, normal;
+  opacity: 0.04;
+  mask-image: linear-gradient(90deg, black, transparent 68%);
+  animation: heroPatternShift 14s ease-in-out infinite alternate;
 }
 
 :root.light-mode .hero-section::before {
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
     linear-gradient(0deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+}
+
+:root.light-mode .hero-section::after {
+  background:
+    radial-gradient(var(--accent-color) 0.5px, transparent 0.5px),
+    radial-gradient(circle at center center, var(--accent-color), transparent 58%),
+    repeating-radial-gradient(
+      circle at center center,
+      color-mix(in srgb, var(--accent-color) 30%, transparent),
+      color-mix(in srgb, var(--accent-color) 30%, transparent) 10px,
+      transparent 10px,
+      transparent 20px
+    ),
+    linear-gradient(90deg, var(--accent-color-faded), transparent 34%);
+  background-size: 10px 10px, 100% 100%, 100% 100%, 100% 100%;
+  background-blend-mode: normal, multiply, multiply, normal;
+  opacity: 0.035;
+}
+
+@keyframes heroGridDrift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 80px 80px, 80px 80px;
+  }
+}
+
+@keyframes heroPatternShift {
+  from {
+    transform: translateX(-1.5rem);
+  }
+  to {
+    transform: translateX(1.5rem);
+  }
 }
 
 .hero-container {
