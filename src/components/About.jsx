@@ -1,28 +1,28 @@
 import React from 'react';
 import './About.css';
-import { Bot, GitBranch, ShieldCheck, Workflow } from 'lucide-react';
+import { BriefcaseBusiness, Database, MapPin, Workflow } from 'lucide-react';
 
 const About = () => {
-  const stats = [
+  const quickFacts = [
     {
-      icon: <Workflow size={24} className="stat-icon" />,
-      value: "E2E",
-      label: "Automation Architecture"
+      label: "Current Role",
+      value: "Senior Quality Engineer at Vyapar",
+      icon: <BriefcaseBusiness size={20} />
     },
     {
-      icon: <ShieldCheck size={24} className="stat-icon" />,
-      value: "API",
-      label: "Data & Contract Validation"
+      label: "Location",
+      value: "Bangalore, India",
+      icon: <MapPin size={20} />
     },
     {
-      icon: <Bot size={24} className="stat-icon" />,
-      value: "AI",
-      label: "QA Agent Workflows"
+      label: "Core Focus",
+      value: "Automation, QA tooling, release confidence",
+      icon: <Workflow size={20} />
     },
     {
-      icon: <GitBranch size={24} className="stat-icon" />,
-      value: "CI",
-      label: "Pipeline Quality Gates"
+      label: "Validation Layer",
+      value: "UI, API, database, Electron, Android",
+      icon: <Database size={20} />
     }
   ];
 
@@ -30,49 +30,49 @@ const About = () => {
     <section id="about" className="section about-section">
       <div className="container">
         <div className="section-header">
-          <h2>About <span className="highlight">Me</span>.</h2>
+          <span className="section-eyebrow">01 - About</span>
+          <h2>I do not just write test cases. I build <span className="italic">systems</span> that improve testing.</h2>
         </div>
 
         <div className="about-content">
-          <div className="about-image-container fade-in">
-            <div className="about-image-wrapper">
-              <img src={`${import.meta.env.BASE_URL}assets/profile.png`} alt="Sumit Singh" className="profile-image" loading="lazy" />
-              <div className="profile-caption">
-                <span>Sumit Singh</span>
-                <small>QA Engineer & SDET</small>
-              </div>
-            </div>
-          </div>
-
           <div className="about-text fade-in" style={{ animationDelay: '0.2s' }}>
             <p>
-              I am a dedicated Quality Assurance Engineer and Software Development Engineer in Test (SDET)
-              with a passion for breaking things gracefully. My core philosophy is that quality isn't
-              an afterthought—it's an integral part of the development lifecycle.
+              I work at the intersection of software testing, automation, developer tools, databases, and AI.
+              My focus is making QA faster, more repeatable, and more engineering-driven.
             </p>
             <p>
-              By combining analytical thinking with automated testing strategies, I help teams deliver
-              robust, scalable, and flawless software. From writing comprehensive end-to-end tests to
-              optimizing CI/CD pipelines, my goal is to accelerate delivery without compromising stability.
+              I currently work at Vyapar as a Senior Quality Engineer, across product testing, Playwright automation, Electron desktop workflows,
+              database validation, internal QA tooling, and AI-powered approaches for complex validation work.
+            </p>
+            <p>
+              My default question is simple: if a problem repeats, can we build a tool or automation system that
+              solves it permanently?
             </p>
 
-            <div className="about-philosophy mono">
-              &gt; "Quality is not an act, it is a habit."
+            <div className="about-tagline">
+              "Quality is not an act, it is a habit."
             </div>
+
           </div>
 
-          <div className="stats-grid">
-            {stats.map((stat, index) => (
-              <div key={index} className="stat-card">
-                <div className="stat-icon-wrapper">
-                  {stat.icon}
-                </div>
-                <div className="stat-info">
-                  <h3 className="stat-value mono">{stat.value}</h3>
-                  <p className="stat-label">{stat.label}</p>
-                </div>
+          <div className="about-side">
+            <div className="quick-facts" aria-label="Quick facts">
+              <div className="about-panel-heading">
+                <span className="section-eyebrow">Quick Facts</span>
               </div>
-            ))}
+              {quickFacts.map((fact) => (
+                <div key={fact.label} className="fact-row">
+                  <div className="fact-icon">
+                    {fact.icon}
+                  </div>
+                  <div>
+                    <span>{fact.label}</span>
+                    <strong>{fact.value}</strong>
+                  </div>
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       </div>

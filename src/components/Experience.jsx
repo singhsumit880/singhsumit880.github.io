@@ -8,13 +8,18 @@ const Experience = () => {
       role: "Senior Quality Engineer",
       company: "Simply Vyapar Apps Private Limited",
       period: "Sept 2023 - Present",
+      current: true,
       logo: `${import.meta.env.BASE_URL}vyapar.png`,
-      description: "Leading verification activities and test automation.",
+      description: "Built repeatable QA systems, automation, and validation workflows for high-impact Vyapar releases.",
       highlights: [
+        "Certified multicurrency support across pricing, conversions, formatting, and edge cases; the release shipped with zero production bugs and reached approx. 8% user adoption within a month.",
+        "Designed and executed 2000+ test cases across product workflows, improving release coverage across UI, API, database, and application-level validation.",
+        "Owned Smart Connect quality from scope analysis to planning, test design, large dataset validation, and final release sign-off.",
+        "Led manual and automation coverage for Flyy by Vyapar across login, campaigns, templates, contact imports, brands.live integration, and real-time status tracking.",
         "Architected an end-to-end testing framework using Playwright and TypeScript, reducing test execution time by 60%.",
-        "Implemented continuous testing in GitHub Actions, catching 45% more bugs before staging deployment.",
-        "Mentored 4 junior QA engineers in test automation best practices.",
-        "Created an API testing suite with Postman and Newman for 50+ microservices."
+        "Extended Playwright beyond browser testing to validate Electron desktop workflows, app state, windows, dialogs, and database-backed behavior.",
+        "Built DB comparison and inspection utilities that reduced repetitive investigation work for QA, support, tech, and data teams.",
+        "Mentored 4 junior QA engineers, improving testing practices and automation adoption across the team."
       ]
     },
     {
@@ -23,10 +28,10 @@ const Experience = () => {
       company: "Tata Consultancy Services (TCS)",
       period: "Dec 2021 - Aug 2023",
       logo: `${import.meta.env.BASE_URL}tcs.png`,
-      description: "Delivering solid releases with UAT and regression testing.",
+      description: "Improved enterprise release readiness through structured UAT, regression testing, and API validation.",
       highlights: [
-        "Created various project specific valuable assets such as knowledge transfer documents, test plan, defect summary reports and lessons learnt documents, successfully delivering 7 releases involving UAT and regression testing.",
-        "Conducted API testing using Postman and REST Assured, validating response codes, headers, and payloads."
+        "Delivered 7 release cycles by owning UAT and regression validation with clear test plans, defect summaries, KT documents, and lessons-learned reports.",
+        "Validated APIs with Postman and REST Assured across response codes, headers, payloads, and business rules."
       ]
     },
     {
@@ -35,11 +40,11 @@ const Experience = () => {
       company: "CEDCOSS Technologies Private Limited",
       period: "Oct 2020 - Nov 2021",
       logo: `${import.meta.env.BASE_URL}cedcoss.png`,
-      description: "QA documentation, testing, and stakeholder reporting.",
+      description: "Built a strong QA foundation across test design, execution, automation basics, and stakeholder reporting.",
       highlights: [
-        "Authored over 1000 detailed test cases in Jira.",
-        "Started implementing basic automated UI tests with Selenium WebDriver (Java).",
-        "Coordinated UAT sessions with key stakeholders before major releases."
+        "Authored 1000+ Jira test cases covering functional, UI, and regression workflows.",
+        "Implemented early UI automation checks with Selenium WebDriver and Java.",
+        "Coordinated UAT sessions with stakeholders to improve release readiness."
       ]
     }
   ];
@@ -48,13 +53,17 @@ const Experience = () => {
     <section id="experience" className="section experience-section">
       <div className="container">
         <div className="section-header">
-          <h2>Engineering <span className="highlight">History</span>.</h2>
+          <span className="section-eyebrow">02 - Experience</span>
+          <h2>Shipping <span className="italic">release confidence</span> across products and teams.</h2>
         </div>
 
         <div className="timeline">
-          {experiences.map((exp, index) => (
+          {experiences.map((exp) => (
             <div key={exp.id} className="timeline-item">
-              <div className="timeline-marker"></div>
+              <div className="period-block">
+                <span className="period mono">{exp.period}</span>
+                {exp.current && <span className="current-badge">Current</span>}
+              </div>
 
               <div className="timeline-content">
                 <div className="timeline-header">
@@ -67,7 +76,6 @@ const Experience = () => {
                       <h4 className="company highlight">{exp.company}</h4>
                     </div>
                   </div>
-                  <span className="period mono">{exp.period}</span>
                 </div>
 
                 <p className="description">{exp.description}</p>

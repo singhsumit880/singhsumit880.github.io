@@ -16,20 +16,19 @@ const Navbar = ({ onOpenResume }) => {
 
   const navLinks = [
     { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
-    { name: 'Education', href: '#education' },
+    { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
     { name: 'Achievements', href: '#achievements' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
-        <a href="#" className="logo">
-          <span className="mono">&lt;</span>
-          QA<span className="highlight">.</span>Engineer
-          <span className="mono">/&gt;</span>
+        <a href="#hero" className="logo">
+          <span>Sumit Singh</span>
+          <span className="available">Available</span>
         </a>
 
         {/* Desktop Nav */}
@@ -40,7 +39,7 @@ const Navbar = ({ onOpenResume }) => {
             </a>
           ))}
          
-          <a href="#contact" className="btn-contact mono">Say Hello</a>
+          <button type="button" className="btn-contact" onClick={onOpenResume}>Resume</button>
         </div>
 
         {/* Mobile Nav Toggle */}
@@ -66,13 +65,16 @@ const Navbar = ({ onOpenResume }) => {
           </a>
         ))}
         
-        <a 
-          href="#contact" 
-          className="btn-contact-mobile mono"
-          onClick={() => setMobileMenuOpen(false)}
+        <button
+          type="button"
+          className="btn-contact-mobile"
+          onClick={() => {
+            setMobileMenuOpen(false);
+            onOpenResume();
+          }}
         >
-          Say Hello
-        </a>
+          Resume
+        </button>
       </div>
     </nav>
   );

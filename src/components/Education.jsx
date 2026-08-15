@@ -19,7 +19,8 @@ const Education = () => {
     <section id="education" className="section education-section">
       <div className="container">
         <div className="section-header">
-          <h2>Academic <span className="highlight">Foundation</span>.</h2>
+          <span className="section-eyebrow">06 - Education</span>
+          <h2>The academic base behind my <span className="italic">engineering mindset</span>.</h2>
         </div>
 
         <div className="education-grid">

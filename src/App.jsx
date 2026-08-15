@@ -9,7 +9,7 @@ import Education from './components/Education';
 import Projects from './components/Projects';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
-import ThemeSelector from './components/ThemeSelector';
+import FollowingDot from './components/FollowingDot';
 import './App.css';
 
 function App() {
@@ -40,27 +40,27 @@ function App() {
 
   return (
     <div className="app">
+      <FollowingDot />
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
       <main>
         <Hero onOpenResume={() => setIsResumeOpen(true)} />
         <About />
-        <Skills />
         <Experience />
-        <Education />
+        <Skills />
         <Projects />
         <Achievements />
-        <Contact />
+        <Education />
+        <Contact onOpenResume={() => setIsResumeOpen(true)} />
       </main>
       <footer className="footer">
         <div className="container">
           <div className="footer-content">
-            <a href="#home" className="footer-logo">&lt;QA.Engineer/&gt;</a>
-            <p>&copy; {new Date().getFullYear()} Designed, built, and tested with a QA-first mindset.</p>
+            <a href="#hero" className="footer-logo">Sumit Singh</a>
+            <p>&copy; {new Date().getFullYear()} QA Engineer · SDET</p>
             <span>Bangalore, India</span>
           </div>
         </div>
       </footer>
-      <ThemeSelector />
       <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </div>
   );
