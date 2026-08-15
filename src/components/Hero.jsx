@@ -1,91 +1,80 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Hero.css';
-import { Download, Github, Linkedin, Mail, Instagram, ArrowRight } from 'lucide-react';
+import { BriefcaseBusiness, Download, Github, Linkedin, Mail, Instagram, ArrowRight, MapPin } from 'lucide-react';
 
 const Hero = ({ onOpenResume }) => {
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(100);
-
-  const titles = ["QA Engineer.", "Vibe Coder."];
-
-  useEffect(() => {
-    const handleTyping = () => {
-      const i = loopNum % titles.length;
-      const fullText = titles[i];
-
-      setText(
-        isDeleting
-          ? fullText.substring(0, text.length - 1)
-          : fullText.substring(0, text.length + 1)
-      );
-
-      setTypingSpeed(isDeleting ? 50 : 100);
-
-      if (!isDeleting && text === fullText) {
-        setTypingSpeed(2000); // Wait before deleting
-        setIsDeleting(true);
-      } else if (isDeleting && text === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-        setTypingSpeed(300); // Pause before re-typing
-      }
-    };
-
-    let timer = setTimeout(handleTyping, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, typingSpeed]);
-
   return (
     <section id="hero" className="hero-section">
       <div className="container hero-container">
         <div className="hero-content">
-          {/* <div className="hero-badge fade-in">
-            <span>QA / SDET / Automation</span>
-          </div> */}
+          <div className="hero-copy">
+            <p className="hero-kicker fade-in">QA ENGINEER / SDET</p>
 
-          <h1 className="hero-title fade-in" style={{ animationDelay: '0.1s' }}>
-            <span className="hero-name">Sumit </span>
-            <span className="text-gradient">Singh</span>
-            <br />
-            <span className={loopNum % 2 === 0 ? "text-gradient-qa" : "text-gradient-vibe"}>
-              {text}
-            </span>
-            <span className="cursor-blink">|</span>
-          </h1>
+            <h1 className="hero-title fade-in" style={{ animationDelay: '0.1s' }}>
+              Building QA systems that make testing <span className="italic">faster</span>, smarter, and reliable.
+            </h1>
 
-          <p className="hero-description fade-in" style={{ animationDelay: '0.2s' }}>
-            I specialize in building robust test automation frameworks, ensuring software quality, and streamlining CI/CD pipelines. Passionate about shifting left and delivering flawless user experiences.
-          </p>
+            <p className="hero-intro fade-in" style={{ animationDelay: '0.16s' }}>
+              QA Engineer / SDET focused on test automation, quality engineering, developer tooling, and AI-assisted testing.
+            </p>
 
-          <div className="hero-metrics fade-in" style={{ animationDelay: '0.25s' }} aria-label="Professional highlights">
-            <div className="hero-metric">
-              <span className="metric-value">5+</span>
-              <span className="metric-label">Years Experience</span>
+            <p className="hero-description fade-in" style={{ animationDelay: '0.2s' }}>
+              I work across web, Electron desktop, Android, APIs, databases, and CI/CD - turning repetitive QA work into frameworks, utilities, and smarter validation systems.
+            </p>
+
+            <div className="hero-insight fade-in" style={{ animationDelay: '0.22s' }}>
+              <span>QA instinct</span>
+              <p>Most bugs hide where nobody thinks to look. That is where I like to work.</p>
             </div>
-            <div className="hero-metric">
-              <span className="metric-value">20+</span>
-              <span className="metric-label">Releases Certified</span>
+
+            <div className="hero-meta fade-in" style={{ animationDelay: '0.22s' }}>
+              <span><MapPin size={16} /> Bangalore, India</span>
+              <span><BriefcaseBusiness size={16} /> Vyapar</span>
+              <span>AI-Assisted Testing</span>
             </div>
-            <div className="hero-metric">
-              <span className="metric-value">500+</span>
-              <span className="metric-label">Bugs Prevented</span>
+
+            <div className="hero-actions fade-in" style={{ animationDelay: '0.3s' }}>
+              <a href="#projects" className="btn btn-primary">
+                View My Work <ArrowRight size={18} />
+              </a>
+              <button type="button" className="btn btn-secondary" onClick={onOpenResume}>
+                View Resume <Download size={18} />
+              </button>
+              <div className="social-links">
+                <a href="https://github.com/singhsumit880/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="GitHub"><Github size={20} /></a>
+                <a href="https://linkedin.com/in/singhsumit880" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn"><Linkedin size={20} /></a>
+                <a href="https://www.instagram.com/singh_sumit_880" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram"><Instagram size={20} /></a>
+                <a href="mailto:singhsumit880@gmail.com" className="social-icon" aria-label="Email"><Mail size={20} /></a>
+              </div>
             </div>
           </div>
 
-          <div className="hero-actions fade-in" style={{ animationDelay: '0.3s' }}>
-            <a href="#projects" className="btn btn-primary">
-              View Projects <ArrowRight size={18} />
-            </a>
-            <button type="button" className="btn btn-secondary" onClick={onOpenResume}>
-              View CV <Download size={18} />
-            </button>
-            <div className="social-links">
-              <a href="https://github.com/singhsumit880/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="GitHub"><Github size={20} /></a>
-              <a href="https://linkedin.com/in/singhsumit880" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn"><Linkedin size={20} /></a>
-              <a href="https://www.instagram.com/singh_sumit_880" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram"><Instagram size={20} /></a>
-              <a href="mailto:singhsumit880@gmail.com" className="social-icon" aria-label="Email"><Mail size={20} /></a>
+          <div className="hero-portrait fade-in" style={{ animationDelay: '0.18s' }}>
+            <div className="hero-image-frame">
+              <img
+                src={`${import.meta.env.BASE_URL}assets/profile.png`}
+                alt="Sumit Singh"
+                className="hero-image"
+              />
+              <div className="photo-badge">
+                <div className="label">Focus</div>
+                <div className="value">Automation & QA</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-metrics fade-in" style={{ animationDelay: '0.25s' }} aria-label="Professional highlights">
+            <div className="hero-metric">
+              <span className="metric-value">5<span className="metric-plus">+</span></span>
+              <span className="metric-label">Years Experience</span>
+            </div>
+            <div className="hero-metric">
+              <span className="metric-value">20<span className="metric-plus">+</span></span>
+              <span className="metric-label">Releases Certified</span>
+            </div>
+            <div className="hero-metric">
+              <span className="metric-value">500<span className="metric-plus">+</span></span>
+              <span className="metric-label">Bugs Reported</span>
             </div>
           </div>
         </div>

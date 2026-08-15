@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './Contact.css';
-import { Mail, MapPin, Linkedin, Github, Twitter, CheckCircle2, Instagram } from 'lucide-react';
+import { Download, Mail, MapPin, Linkedin, Github, CheckCircle2, Instagram } from 'lucide-react';
+import { GOOGLE_APPS_SCRIPT_URL } from '../resumeLinks';
 
-const Contact = () => {
+const Contact = ({ onOpenResume }) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle, submitting, success, error
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8HP0C2oghWaDsq9nd_EuzXirKr109qlJSVi6rJSwOuRnWAbgEhAAxjmoY2alwrIU_/exec";
+  const SCRIPT_URL = GOOGLE_APPS_SCRIPT_URL;
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -48,16 +49,16 @@ const Contact = () => {
     <section id="contact" className="section contact-section">
       <div className="container">
         <div className="section-header">
-          <h2>Get In <span className="highlight">Touch</span>.</h2>
+          <span className="section-eyebrow">07 - Contact</span>
+          <h2>Let's build <span className="italic">reliable software</span> together.</h2>
         </div>
 
         <div className="contact-content">
           <div className="contact-info">
-            <h3 className="contact-title">Let's build reliable software together.</h3>
+            <h3 className="contact-title">Let's talk QA systems, automation, and release confidence.</h3>
             <p className="contact-description">
-              Whether you need to set up an automation framework from scratch,
-              optimize your CI/CD pipelines, or just want to discuss the latest in testing,
-              my inbox is always open.
+              I am interested in Playwright, Electron automation, Android testing, AI for QA,
+              database validation, SDET practices, and developer productivity tools.
             </p>
 
             <div className="contact-details">
@@ -72,6 +73,10 @@ const Contact = () => {
               <div className="contact-item">
                 <span className="contact-icon mono" style={{ fontSize: '1.2rem' }}>&#9742;</span>
                 <a href="tel:+919839457182">+91-9839457182</a>
+              </div>
+              <div className="contact-item">
+                <Download className="contact-icon" size={20} />
+                <button type="button" className="contact-link-button" onClick={onOpenResume}>Open Resume</button>
               </div>
             </div>
 
@@ -117,7 +122,7 @@ const Contact = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group message-group">
                   <label htmlFor="message" className="mono">Message</label>
                   <textarea
                     id="message"

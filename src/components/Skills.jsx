@@ -1,108 +1,143 @@
 import React from 'react';
 import './Skills.css';
-import { Code2, Cpu, Database, Settings, ShieldCheck, TerminalSquare } from 'lucide-react';
-
-const simpleIcon = (slug, color) => `https://cdn.simpleicons.org/${slug}/${color}`;
-const devIcon = (path) => `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${path}`;
-
-const skillMeta = {
-  "Selenium WebDriver": { icon: simpleIcon('selenium', '43B02A') },
-  "Appium": { icon: simpleIcon('appium', 'EE376D') },
-  "Playwright": { icon: devIcon('playwright/playwright-original.svg') },
-  "TestNG": { label: 'TNG' },
-  "JUnit": { icon: simpleIcon('junit5', '25A162') },
-  "Cucumber": { icon: simpleIcon('cucumber', '23D96C') },
-  "Postman": { icon: simpleIcon('postman', 'FF6C37') },
-  "REST Assured": { label: 'RA' },
-  "JMeter": { icon: simpleIcon('apachejmeter', 'D22128') },
-  "Burp Suite": { icon: simpleIcon('burpsuite', 'FF6633') },
-  "Java": { icon: simpleIcon('openjdk', '000000') },
-  "Python": { icon: simpleIcon('python', '3776AB') },
-  "JavaScript": { icon: simpleIcon('javascript', 'F7DF1E') },
-  "TypeScript": { icon: simpleIcon('typescript', '3178C6') },
-  "SQL": { label: 'SQL' },
-  "Jenkins": { icon: simpleIcon('jenkins', 'D24939') },
-  "GitHub Actions": { icon: simpleIcon('githubactions', '2088FF') },
-  "Docker": { icon: simpleIcon('docker', '2496ED') },
-  "AWS": { icon: devIcon('amazonwebservices/amazonwebservices-original-wordmark.svg') },
-  "MySQL": { icon: simpleIcon('mysql', '4479A1') },
-  "MongoDB": { icon: simpleIcon('mongodb', '47A248') },
-  "Git": { icon: simpleIcon('git', 'F05032') },
-  "GitHub": { icon: simpleIcon('github', '181717') },
-};
-
-const SkillIcon = ({ skill }) => {
-  const meta = skillMeta[skill];
-
-  if (meta?.icon) {
-    return (
-      <span className="skill-item-icon" aria-hidden="true">
-        <img src={meta.icon} alt="" loading="lazy" />
-      </span>
-    );
-  }
-
-  return (
-    <span className="skill-item-icon skill-item-text-icon" aria-hidden="true">
-      {meta?.label || skill.slice(0, 2).toUpperCase()}
-    </span>
-  );
-};
+import { Code2, Cpu, Database, Layers, SearchCheck, Settings, Smartphone, TerminalSquare, Wrench } from 'lucide-react';
 
 const Skills = () => {
-  const skillCategories = [
+  const qaTableGroups = [
     {
-      title: "Test Automation",
+      title: "Testing Types",
+      icon: <SearchCheck size={20} />,
+      items: [
+        "Manual Testing",
+        "Functional",
+        "Regression",
+        "Exploratory",
+        "API Testing",
+        "Database Testing",
+        "Cross-Browser",
+        "UI/UX",
+        "Responsive",
+        "Security",
+        "Electron Testing",
+        "AI Driven Testing"
+      ]
+    },
+    {
+      title: "Automation Systems",
       icon: <Settings size={20} />,
-      skills: ["Selenium WebDriver", "Appium", "Playwright"]
+      items: [
+        "Playwright",
+        "TypeScript",
+        "Page Object Model",
+        "Parallel Execution",
+        "Custom Reporting",
+        "CI/CD Integration"
+      ]
     },
     {
       title: "Frameworks & Tools",
-      icon: <ShieldCheck size={20} />,
-      skills: ["TestNG", "JUnit", "Cucumber"]
+      icon: <Code2 size={20} />,
+      items: [
+        "Jira",
+        "Chrome DevTools",
+        "Git",
+        "GitHub",
+        "TestNG",
+        "JUnit",
+        "Cucumber"
+      ]
     },
     {
-      title: "API & Performance",
+      title: "API, Performance & Security",
       icon: <Cpu size={20} />,
-      skills: ["Postman", "REST Assured", "JMeter", "Burp Suite"]
+      items: [
+        "Postman",
+        "REST Assured",
+        "JMeter",
+        "Burp Suite",
+        "Contract Validation",
+        "Load Testing"
+      ]
     },
     {
       title: "Languages",
-      icon: <Code2 size={20} />,
-      skills: ["Java", "Python", "JavaScript", "TypeScript", "SQL"]
-    },
-    {
-      title: "CI/CD & DevOps",
-      icon: <TerminalSquare size={20} />,
-      skills: ["Jenkins", "GitHub Actions", "Docker", "AWS"]
-    },
-    {
-      title: "Database & Others",
       icon: <Database size={20} />,
-      skills: ["MySQL", "MongoDB", "Git", "GitHub"]
-    }
+      items: [
+        "Python",
+        "TypeScript",
+        "JavaScript",
+        "Java",
+        "SQL"
+      ]
+    },
+    {
+      title: "DevOps / CI/CD",
+      icon: <TerminalSquare size={20} />,
+      items: [
+        "Jenkins",
+        "GitHub Actions",
+        "Docker",
+        "AWS",
+        "CI/CD Basics"
+      ]
+    },
+    {
+      title: "QA Tooling",
+      icon: <Wrench size={20} />,
+      items: [
+        "DB Compare",
+        "DB Inspection",
+        "Excel Compare",
+        "Test Utilities",
+        "Validation Helpers",
+        "Bug Reports"
+      ]
+    },
+    {
+      title: "Methodologies",
+      icon: <Layers size={20} />,
+      items: [
+        "Agile",
+        "Scrum",
+        "SDLC",
+        "STLC",
+        "Test Design",
+        "Defect Mgmt",
+        "QA/QC"
+      ]
+    },
+    {
+      title: "Domains",
+      icon: <Smartphone size={20} />,
+      items: [
+        "FinTech",
+        "BFSI",
+        "E-Commerce",
+        "WordPress",
+        "WooCommerce",
+        "Retail / Inventory"
+      ]
+    },
   ];
 
   return (
     <section id="skills" className="section skills-section">
       <div className="container">
         <div className="section-header">
-          <h2>Technical <span className="highlight">Arsenal</span>.</h2>
+          <span className="section-eyebrow">03 - Technical Arsenal</span>
+          <h2>Everything I bring to the <span className="italic">QA table</span>.</h2>
         </div>
 
-        <div className="skills-grid">
-          {skillCategories.map((category, index) => (
-            <div key={index} className="skill-category-card">
-              <div className="skill-category-header">
-                <div className="skill-icon">{category.icon}</div>
-                <h3 className="skill-title">{category.title}</h3>
+        <div className="qa-table-grid">
+          {qaTableGroups.map((group) => (
+            <div key={group.title} className="qa-table-card">
+              <div className="qa-table-heading">
+                <span className="skill-icon">{group.icon}</span>
+                <h3>{group.title}</h3>
               </div>
-              <ul className="skill-list">
-                {category.skills.map((skill, kidx) => (
-                  <li key={kidx} className="skill-item mono">
-                    <SkillIcon skill={skill} />
-                    <span>{skill}</span>
-                  </li>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>

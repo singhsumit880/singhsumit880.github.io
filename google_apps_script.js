@@ -12,7 +12,202 @@
  * 7. Copy the Web app URL and provide it to the AI.
  */
 
-const TO_EMAIL = "sumitsingh98896@gmail.com"; // Your email address where you want to receive notifications
+/* eslint-disable no-unused-vars */
+/* global ContentService, DriveApp, HtmlService, MailApp, SpreadsheetApp */
+
+const TO_EMAIL = "devxsumit@gmail.com"; // Your email address where you want to receive notifications
+const RESUME_FOLDER_ID = "1pjD7wiqXQmCnXiD-Yw1P8X2iRXCu3bHP";
+const RESUME_FILE_NAMES = ["Sumit_Singh_CV.pdf", "sumit_cv.pdf", "Sumit_SDET.pdf"];
+const FALLBACK_RESUME_URL = "https://singhsumit880.github.io/Sumit_Singh_CV.pdf";
+
+function doGet(e) {
+  const params = e && e.parameter ? e.parameter : {};
+
+  if (params.action === "health") {
+    return jsonResponse_({
+      result: "success",
+      message: "Portfolio Apps Script is running"
+    });
+  }
+
+  if (params.action === "resume") {
+    return openLatestResume_(params.mode);
+  }
+
+  if (params.action === "resume-jsonp") {
+    return resumeJsonp_(params.callback);
+  }
+
+  if (params.action === "resume-json") {
+    return jsonResponse_(getResumePayload_());
+  }
+
+  return jsonResponse_({
+    result: "success",
+    message: "Portfolio Apps Script is running"
+  });
+}
+
+function openLatestResume_(mode) {
+  const resume = getResumePayload_();
+  const resumeUrl = mode === "embed" ? resume.embedUrl : resume.viewUrl;
+
+  if (mode === "embed") {
+    return renderResumeEmbed_(resumeUrl)
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  }
+
+  const safeUrl = JSON.stringify(resumeUrl);
+  const safeMetaUrl = escapeHtml_(resumeUrl);
+
+  return HtmlService.createHtmlOutput(`
+    <!doctype html>
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="refresh" content="0; url=${safeMetaUrl}">
+        <title>Opening resume...</title>
+      </head>
+      <body>
+        <script>window.location.replace(${safeUrl});</script>
+        <p>Opening resume...</p>
+      </body>
+    </html>
+  `);
+}
+
+function resumeJsonp_(callback) {
+  const callbackName = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*)*$/.test(callback || "")
+    ? callback
+    : "callback";
+  const payload = JSON.stringify(getResumePayload_());
+
+  return ContentService.createTextOutput(`${callbackName}(${payload});`)
+    .setMimeType(ContentService.MimeType.JAVASCRIPT);
+}
+
+function getResumePayload_() {
+  try {
+    const resumeFile = getResumeFile_();
+
+    if (resumeFile) {
+      const fileId = resumeFile.getId();
+
+      return {
+        result: "success",
+        source: "drive",
+        fileName: resumeFile.getName(),
+        fileId,
+        embedUrl: `https://drive.google.com/file/d/${fileId}/preview`,
+        viewUrl: `https://drive.google.com/file/d/${fileId}/view?usp=sharing`,
+        downloadUrl: `https://drive.google.com/uc?export=download&id=${fileId}`
+      };
+    }
+  } catch (error) {
+    return {
+      result: "fallback",
+      source: "local",
+      error: error.toString(),
+      embedUrl: FALLBACK_RESUME_URL,
+      viewUrl: FALLBACK_RESUME_URL,
+      downloadUrl: FALLBACK_RESUME_URL
+    };
+  }
+
+  return {
+    result: "fallback",
+    source: "local",
+    error: "No usable PDF found in the configured Drive folder",
+    embedUrl: FALLBACK_RESUME_URL,
+    viewUrl: FALLBACK_RESUME_URL,
+    downloadUrl: FALLBACK_RESUME_URL
+  };
+}
+
+function renderResumeEmbed_(resumeUrl) {
+  const safeUrl = JSON.stringify(resumeUrl);
+  const safeAttributeUrl = escapeHtml_(resumeUrl);
+
+  return HtmlService.createHtmlOutput(`
+    <!doctype html>
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          html, body { margin: 0; width: 100%; height: 100%; background: #f5f1ea; overflow: hidden; }
+          iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+          .fallback { position: fixed; inset: auto 16px 16px 16px; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.92); font: 14px Arial, sans-serif; color: #1a1a2e; box-shadow: 0 8px 28px rgba(26,26,46,.12); }
+          .fallback a { color: #c1502e; font-weight: 700; }
+        </style>
+      </head>
+      <body>
+        <iframe src="${safeAttributeUrl}" title="Sumit Singh Resume"></iframe>
+        <noscript><p class="fallback">Open resume: <a href="${safeAttributeUrl}" target="_blank" rel="noopener">Resume PDF</a></p></noscript>
+        <script>
+          window.__resumeUrl = ${safeUrl};
+        </script>
+      </body>
+    </html>
+  `);
+}
+
+function getResumeFile_() {
+  const folder = DriveApp.getFolderById(RESUME_FOLDER_ID);
+  return findPreferredResumeFile_(folder) || findSinglePdfResumeFile_(folder);
+}
+
+function findPreferredResumeFile_(folder) {
+  for (const fileName of RESUME_FILE_NAMES) {
+    const files = folder.getFilesByName(fileName);
+
+    while (files.hasNext()) {
+      const file = files.next();
+      if (isUsablePdf_(file)) {
+        return file;
+      }
+    }
+  }
+
+  return null;
+}
+
+function findSinglePdfResumeFile_(folder) {
+  const files = folder.getFiles();
+  let pdfFile = null;
+
+  while (files.hasNext()) {
+    const file = files.next();
+
+    if (isUsablePdf_(file)) {
+      if (pdfFile) {
+        return getLatestPdfFile_(folder);
+      }
+      pdfFile = file;
+    }
+  }
+
+  return pdfFile;
+}
+
+function getLatestPdfFile_(folder) {
+  const files = folder.getFiles();
+  let latestFile = null;
+
+  while (files.hasNext()) {
+    const file = files.next();
+
+    if (isUsablePdf_(file) && (!latestFile || file.getLastUpdated() > latestFile.getLastUpdated())) {
+      latestFile = file;
+    }
+  }
+
+  return latestFile;
+}
+
+function isUsablePdf_(file) {
+  return !file.isTrashed()
+    && (file.getMimeType() === MimeType.PDF || file.getName().toLowerCase().endsWith(".pdf"));
+}
 
 function doPost(e) {
   try {
@@ -26,7 +221,7 @@ function doPost(e) {
     if (e.postData && e.postData.contents) {
       try {
         body = JSON.parse(e.postData.contents);
-      } catch (f) {
+      } catch {
         // If not valid JSON, it might be raw or text/plain
       }
     }
@@ -70,10 +265,20 @@ function doPost(e) {
 }
 
 // Handle CORS preflight requests
-function doOptions(e) {
+function doOptions() {
   return ContentService.createTextOutput("")
-    .setMimeType(ContentService.MimeType.TEXT)
-    .setHeader("Access-Control-Allow-Origin", "*")
-    .setHeader("Access-Control-Allow-Methods", "POST")
-    .setHeader("Access-Control-Allow-Headers", "Content-Type");
+    .setMimeType(ContentService.MimeType.TEXT);
+}
+
+function jsonResponse_(payload) {
+  return ContentService.createTextOutput(JSON.stringify(payload, null, 2))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function escapeHtml_(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
